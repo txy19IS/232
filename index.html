@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐾 232动物园 - 六人专属娱乐站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1>🐾 232动物园 🐾</h1>
+            <p>✨ 六人专属快乐星球 ✨</p>
+        </header>
+
+        <main id="main-page">
+            <div class="grid-container">
+                <div class="card" data-game="undercover">
+                    <div class="card-icon">🔍</div>
+                    <h3>谁是卧底</h3>
+                    <p>6人宿舍词库对战</p>
+                </div>
+
+                <div class="card" data-game="werewolf">
+                    <div class="card-icon">🐺</div>
+                    <h3>简易狼人杀</h3>
+                    <p>2狼3民1女巫</p>
+                </div>
+
+                <div class="card" data-game="draw">
+                    <div class="card-icon">🎯</div>
+                    <h3>宿舍抽签器</h3>
+                    <p>六人专属任务挑战</p>
+                </div>
+
+                <div class="card" data-game="roulette">
+                    <div class="card-icon">🎡</div>
+                    <h3>惩罚大转盘</h3>
+                    <p>运气决定命运</p>
+                </div>
+
+                <div class="card" data-game="truth">
+                    <div class="card-icon">💕</div>
+                    <h3>真心话大冒险</h3>
+                    <p>多难度题库挑战</p>
+                </div>
+
+                <div class="card" data-game="message">
+                    <div class="card-icon">💌</div>
+                    <h3>宿舍留言墙</h3>
+                    <p>留下美好回忆</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 谁是卧底游戏页面 -->
+        <section id="undercover-page" class="game-page" style="display:none;">
+            <div class="game-header">
+                <button class="back-btn">🏠 返回</button>
+                <h2>🔍 谁是卧底</h2>
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-toggle" onclick="toggleRules(this)">
+                    <span>📖 游戏规则</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="rules-content">
+                    <p><strong>游戏人数：</strong>6人</p>
+                    <p><strong>游戏流程：</strong></p>
+                    <ul>
+                        <li>每人获得一个词语，卧底获得相似但不同的词语</li>
+                        <li>按顺序描述自己的词语，每人只能说一句话</li>
+                        <li>所有描述完成后，投票选出卧底</li>
+                        <li>若卧底被投出，游戏结束；否则继续游戏</li>
+                    </ul>
+                    <p><strong>胜利条件：</strong>平民找出所有卧底 / 卧底存活到最后</p>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="players-input">
+                    <h4>👥 输入玩家人数</h4>
+                    <div style="margin-bottom: 15px;">
+                        <input type="number" id="undercover-player-count" min="4" max="10" value="6" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <p style="text-align: center; font-size: 12px; color: #888; margin-top: 5px;">最少4人，最多10人</p>
+                    </div>
+                    <h4>🎮 输入玩家名字</h4>
+                    <div class="input-group" id="undercover-names-container">
+                        <input type="text" id="undercover-name-1" placeholder="玩家1" maxlength="10">
+                        <input type="text" id="undercover-name-2" placeholder="玩家2" maxlength="10">
+                        <input type="text" id="undercover-name-3" placeholder="玩家3" maxlength="10">
+                        <input type="text" id="undercover-name-4" placeholder="玩家4" maxlength="10">
+                        <input type="text" id="undercover-name-5" placeholder="玩家5" maxlength="10">
+                        <input type="text" id="undercover-name-6" placeholder="玩家6" maxlength="10">
+                    </div>
+                </div>
+
+                <div class="custom-words" id="custom-words-box">
+                    <h4>✏️ 自定义词语</h4>
+                    <input type="text" id="custom-word-normal" placeholder="平民词：如 外卖">
+                    <input type="text" id="custom-word-undercover" placeholder="卧底词：如 快递">
+                </div>
+
+                <button class="btn-primary" onclick="startUndercover()">🎮 开始游戏</button>
+
+                <div id="undercover-game-area" style="display:none;">
+                    <div class="turn-indicator">
+                        现在是：<span id="current-player">-</span> 的回合
+                    </div>
+                    <div class="word-display">
+                        <div class="word-card" id="word-card">
+                            <div class="word-card-inner">
+                                <div class="word-card-front">❓</div>
+                                <div class="word-card-back" id="player-word">词语</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-secondary" onclick="nextUndercoverTurn()">下一位 ▶</button>
+                    <button class="btn-danger" onclick="voteUndercover()">🗳️ 投票环节</button>
+                </div>
+
+                <div id="undercover-vote-area" style="display:none;">
+                    <h3>🗳️ 投票选出卧底</h3>
+                    <div class="vote-buttons" id="vote-buttons"></div>
+                    <div id="vote-result"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 简易狼人杀游戏页面 -->
+        <section id="werewolf-page" class="game-page" style="display:none;">
+            <div class="game-header">
+                <button class="back-btn">🏠 返回</button>
+                <h2>🐺 简易狼人杀</h2>
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-toggle" onclick="toggleRules(this)">
+                    <span>📖 角色规则</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="rules-content">
+                    <div class="role-card">
+                        <div class="role-icon">🐺</div>
+                        <div class="role-info">
+                            <h5>狼人 ×2</h5>
+                            <p>知道队友身份，每晚可击杀一名玩家</p>
+                        </div>
+                    </div>
+                    <div class="role-card">
+                        <div class="role-icon">👤</div>
+                        <div class="role-info">
+                            <h5>村民 ×3</h5>
+                            <p>没有任何特殊能力，通过发言找出狼人</p>
+                        </div>
+                    </div>
+                    <div class="role-card">
+                        <div class="role-icon">🧙</div>
+                        <div class="role-info">
+                            <h5>女巫 ×1</h5>
+                            <p>有一瓶解药和一瓶毒药，可救人或毒人</p>
+                        </div>
+                    </div>
+                    <p><strong>游戏流程：</strong></p>
+                    <ul>
+                        <li>天黑阶段：狼人杀人 → 女巫决定是否救人/毒人</li>
+                        <li>天亮阶段：宣布昨晚结果 → 依次发言 → 投票</li>
+                        <li>票数最多者出局，可留下遗言</li>
+                    </ul>
+                    <p><strong>胜利条件：</strong>狼人全部出局村民胜利 / 狼人数量等于村民数量狼人胜利</p>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="players-input">
+                    <h4>👥 输入室友名字（6人）</h4>
+                    <div class="input-group">
+                        <input type="text" id="werewolf-name-1" placeholder="玩家1" maxlength="10">
+                        <input type="text" id="werewolf-name-2" placeholder="玩家2" maxlength="10">
+                        <input type="text" id="werewolf-name-3" placeholder="玩家3" maxlength="10">
+                        <input type="text" id="werewolf-name-4" placeholder="玩家4" maxlength="10">
+                        <input type="text" id="werewolf-name-5" placeholder="玩家5" maxlength="10">
+                        <input type="text" id="werewolf-name-6" placeholder="玩家6" maxlength="10">
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="startWerewolf()">🎮 开始游戏</button>
+
+                <div id="werewolf-game-area" style="display:none;">
+                    <div class="phase-indicator" id="phase-indicator">
+                        <span class="phase day">☀️ 白天</span>
+                        <span class="phase night" style="display:none;">🌙 夜晚</span>
+                    </div>
+
+                    <div class="night-action" id="night-action" style="display:none;">
+                        <h3 id="night-prompt">狼人请睁眼，选择要击杀的对象</h3>
+                        <div class="action-buttons" id="action-buttons"></div>
+                        <button class="btn-primary" onclick="confirmNightAction()">确认 ☀️</button>
+                    </div>
+
+                    <div class="day-result" id="day-result" style="display:none;">
+                        <h3 id="death-info"></h3>
+                        <button class="btn-secondary" onclick="nextPhase()">继续 ▶</button>
+                    </div>
+
+                    <div class="vote-section" id="vote-section" style="display:none;">
+                        <h3>🗳️ 投票环节</h3>
+                        <div class="vote-buttons" id="werewolf-vote-buttons"></div>
+                        <div id="werewolf-vote-result"></div>
+                    </div>
+
+                    <div class="game-log" id="game-log"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 宿舍抽签器页面 -->
+        <section id="draw-page" class="game-page" style="display:none;">
+            <div class="game-header">
+                <button class="back-btn">🏠 返回</button>
+                <h2>🎯 宿舍抽签器</h2>
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-toggle" onclick="toggleRules(this)">
+                    <span>📖 使用规则</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="rules-content">
+                    <p><strong>使用说明：</strong></p>
+                    <ul>
+                        <li>输入6位室友的名字（可自定义）</li>
+                        <li>添加想要抽取的任务（用|分隔）</li>
+                        <li>点击抽签按钮开始抽取</li>
+                        <li>抽签结果会动画展示</li>
+                    </ul>
+                    <p><strong>适用场景：</strong>选人干活、分工任务、决定谁请客等</p>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="players-input">
+                    <h4>👥 输入室友名字</h4>
+                    <div class="input-group vertical">
+                        <input type="text" id="draw-name-1" placeholder="室友1" maxlength="10">
+                        <input type="text" id="draw-name-2" placeholder="室友2" maxlength="10">
+                        <input type="text" id="draw-name-3" placeholder="室友3" maxlength="10">
+                        <input type="text" id="draw-name-4" placeholder="室友4" maxlength="10">
+                        <input type="text" id="draw-name-5" placeholder="室友5" maxlength="10">
+                        <input type="text" id="draw-name-6" placeholder="室友6" maxlength="10">
+                    </div>
+                </div>
+
+                <div class="tasks-input">
+                    <h4>📝 任务列表（用|分隔）</h4>
+                    <textarea id="tasks-list" placeholder="例如：倒垃圾|取快递|打扫卫生|请客买奶茶|帮拿外卖|洗衣服" rows="3"></textarea>
+                </div>
+
+                <button class="btn-primary" onclick="startDraw()">🎯 开始抽签</button>
+
+                <div id="draw-result" style="display:none;">
+                    <div class="draw-animation" id="draw-animation">
+                        <div class="draw-stick" id="draw-stick">🎲</div>
+                    </div>
+                    <div class="result-display" id="result-display"></div>
+                    <button class="btn-secondary" onclick="resetDraw()">🔄 再抽一次</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 惩罚大转盘页面 -->
+        <section id="roulette-page" class="game-page" style="display:none;">
+            <div class="game-header">
+                <button class="back-btn">🏠 返回</button>
+                <h2>🎡 惩罚大转盘</h2>
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-toggle" onclick="toggleRules(this)">
+                    <span>📖 玩法说明</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="rules-content">
+                    <p><strong>游戏流程：</strong></p>
+                    <ul>
+                        <li>在惩罚列表中添加各种有趣的惩罚</li>
+                        <li>点击"转动转盘"按钮开始</li>
+                        <li>转盘会快速旋转，然后慢慢停下</li>
+                        <li>指针指向的惩罚即为本次结果</li>
+                    </ul>
+                    <p><strong>适用场景：</strong>真心话大冒险惩罚、聚会游戏等</p>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="punishments-input">
+                    <h4>⚡ 惩罚列表（用|分隔）</h4>
+                    <textarea id="punishments-list" placeholder="例如：打扫宿舍|请客喝奶茶|唱首歌|模仿动物叫|做10个俯卧撑|给家人打电话说我爱你" rows="4"></textarea>
+                </div>
+
+                <div class="roulette-container">
+                    <div class="roulette-pointer">▼</div>
+                    <canvas id="roulette-canvas" width="300" height="300"></canvas>
+                </div>
+
+                <button class="btn-primary" id="spin-btn" onclick="spinRoulette()">🎡 转动转盘</button>
+
+                <div id="roulette-result" style="display:none;">
+                    <div class="result-card" id="roulette-result-card">
+                        <h3>🎉 恭喜被选中！</h3>
+                        <p id="roulette-punishment"></p>
+                    </div>
+                    <button class="btn-secondary" onclick="resetRoulette()">🔄 再转一次</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 真心话大冒险页面 -->
+        <section id="truth-page" class="game-page" style="display:none;">
+            <div class="game-header">
+                <button class="back-btn">🏠 返回</button>
+                <h2>💕 真心话大冒险</h2>
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-toggle" onclick="toggleRules(this)">
+                    <span>📖 游玩规则</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="rules-content">
+                    <p><strong>游戏说明：</strong></p>
+                    <ul>
+                        <li>选择难度等级：简单/普通/困难</li>
+                        <li>点击卡片抽取真心话或大冒险</li>
+                        <li>卡片会翻转显示内容</li>
+                        <li>必须如实回答或完成任务</li>
+                    </ul>
+                    <p><strong>难度说明：</strong></p>
+                    <ul>
+                        <li>🟢 简单：日常趣味问题</li>
+                        <li>🟡 普通：稍带刺激的问题</li>
+                        <li>🔴 困难：非常刺激的挑战</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="difficulty-selector">
+                    <h4>🎚️ 选择难度</h4>
+                    <div class="difficulty-buttons">
+                        <button class="btn-difficulty selected" data-level="easy" onclick="selectDifficulty('easy')">🟢 简单</button>
+                        <button class="btn-difficulty" data-level="normal" onclick="selectDifficulty('normal')">🟡 普通</button>
+                        <button class="btn-difficulty" data-level="hard" onclick="selectDifficulty('hard')">🔴 困难</button>
+                    </div>
+                </div>
+
+                <div class="card-container">
+                    <div class="flip-card" id="truth-card" onclick="flipCard()">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">💭</div>
+                            <div class="flip-card-back" id="card-content">
+                                点击抽取
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="type-buttons">
+                    <button class="btn-truth selected" data-type="truth" onclick="selectType('truth')">💬 真心话</button>
+                    <button class="btn-truth" data-type="dare" onclick="selectType('dare')">🎃 大冒险</button>
+                </div>
+
+                <button class="btn-primary" onclick="drawTruthCard()">🎴 抽取卡片</button>
+            </div>
+        </section>
+
+        <!-- 宿舍留言墙页面 -->
+        <section id="message-page" class="game-page" style="display:none;">
+            <div class="game-header">
+                <button class="back-btn">🏠 返回</button>
+                <h2>💌 宿舍留言墙</h2>
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-toggle" onclick="toggleRules(this)">
+                    <span>📖 留言规则</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="rules-content">
+                    <p><strong>使用说明：</strong></p>
+                    <ul>
+                        <li>输入昵称和留言内容（限30字）</li>
+                        <li>点击提交即可发布留言</li>
+                        <li>留言会自动保存到本地</li>
+                        <li>刷新页面后记录不丢失</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="message-input">
+                    <h4>✍️ 发表留言</h4>
+                    <input type="text" id="message-nickname" placeholder="昵称（可选）" maxlength="10">
+                    <textarea id="message-content" placeholder="写下你的留言..." rows="3" maxlength="30"></textarea>
+                    <button class="btn-primary" onclick="submitMessage()">📤 提交留言</button>
+                </div>
+
+                <div class="messages-container">
+                    <h4>📋 留言列表</h4>
+                    <div id="messages-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <p>19のwebsite</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
