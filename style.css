@@ -39,7 +39,6 @@ body {
     margin: 0 auto;
 }
 
-/* 主页面头部 */
 .main-header {
     text-align: center;
     padding: 40px 20px;
@@ -64,7 +63,6 @@ body {
     opacity: 0.9;
 }
 
-/* 卡片网格布局 */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -107,7 +105,6 @@ body {
     color: var(--text-light);
 }
 
-/* 游戏页面通用样式 */
 .game-page {
     padding: 20px;
 }
@@ -146,7 +143,6 @@ body {
     box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
 }
 
-/* 规则盒子 */
 .rules-box {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
@@ -209,33 +205,6 @@ body {
     padding-left: 20px;
 }
 
-/* 角色卡片 */
-.role-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: var(--white);
-    border-radius: 15px;
-    margin-bottom: 10px;
-}
-
-.role-icon {
-    font-size: 2.5rem;
-}
-
-.role-info h5 {
-    font-size: 1.1rem;
-    color: var(--text-dark);
-    margin-bottom: 5px;
-}
-
-.role-info p {
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-/* 游戏内容区域 */
 .game-content {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 25px;
@@ -249,7 +218,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* 输入框样式 */
 .input-group {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -283,7 +251,6 @@ textarea {
     border-radius: 15px;
 }
 
-/* 按钮样式 */
 .btn-primary {
     padding: 15px 40px;
     border: none;
@@ -341,7 +308,6 @@ textarea {
     box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
 
-/* 词语显示卡片 */
 .word-display {
     display: flex;
     justify-content: center;
@@ -410,7 +376,6 @@ textarea {
     font-weight: bold;
 }
 
-/* 投票按钮 */
 .vote-buttons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -440,77 +405,6 @@ textarea {
     color: var(--white);
 }
 
-/* 阶段指示器 */
-.phase-indicator {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.phase {
-    padding: 10px 25px;
-    border-radius: 20px;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-.phase.day {
-    background: var(--yellow);
-    color: var(--text-dark);
-}
-
-.phase.night {
-    background: var(--purple-light);
-    color: var(--text-dark);
-}
-
-.night-action, .day-result, .vote-section {
-    text-align: center;
-    padding: 20px;
-    background: var(--gray-light);
-    border-radius: 20px;
-    margin-bottom: 20px;
-}
-
-.action-buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
-    margin: 20px 0;
-}
-
-.action-btn {
-    padding: 12px;
-    border: 2px solid var(--blue);
-    border-radius: 12px;
-    background: var(--white);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-}
-
-.action-btn:hover, .action-btn.selected {
-    background: var(--blue);
-    color: var(--white);
-}
-
-.game-log {
-    max-height: 200px;
-    overflow-y: auto;
-    padding: 15px;
-    background: var(--white);
-    border-radius: 15px;
-    margin-top: 20px;
-}
-
-.game-log p {
-    padding: 8px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid var(--gray-light);
-}
-
-/* 抽签器 */
 .draw-animation {
     display: flex;
     justify-content: center;
@@ -544,7 +438,6 @@ textarea {
     color: var(--pink-dark);
 }
 
-/* 转盘 */
 .roulette-container {
     position: relative;
     display: flex;
@@ -588,7 +481,6 @@ textarea {
     color: var(--pink-dark);
 }
 
-/* 真心话大冒险 */
 .difficulty-selector {
     text-align: center;
     margin-bottom: 25px;
@@ -701,33 +593,30 @@ textarea {
     color: var(--white);
 }
 
-/* 留言墙 */
-.message-form {
+.message-input {
     background: var(--gray-light);
     padding: 25px;
     border-radius: 20px;
     margin-bottom: 25px;
 }
 
-.message-form input, .message-form textarea {
+.message-input input, .message-input textarea {
     margin-bottom: 15px;
-}
-
-.message-wall {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 20px;
-}
-
-.message-wall h4 {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--pink-light);
 }
 
 .messages-container {
     max-height: 400px;
     overflow-y: auto;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.messages-container h4 {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--pink-light);
+    color: var(--text-dark);
 }
 
 .message-card {
@@ -762,7 +651,140 @@ textarea {
     color: var(--text-light);
 }
 
-/* 动画 */
+.moments-input {
+    background: var(--gray-light);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+}
+
+.moments-input input, .moments-input textarea {
+    margin-bottom: 15px;
+}
+
+.upload-box {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.upload-box input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.preview-area {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed var(--pink);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    color: var(--text-light);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.preview-area:hover {
+    border-color: var(--pink-dark);
+    background: var(--pink-light);
+}
+
+.preview-area img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+}
+
+.moments-container {
+    max-height: 600px;
+    overflow-y: auto;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.moments-container h4 {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--pink-light);
+    color: var(--text-dark);
+}
+
+.moment-card {
+    background: linear-gradient(135deg, var(--gray-light), var(--white));
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--blue);
+    animation: slideIn 0.3s ease;
+}
+
+.moment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.moment-header .nickname {
+    font-weight: bold;
+    color: var(--blue-dark);
+}
+
+.moment-header .time {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.moment-image {
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.moment-image img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.moment-content {
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding: 10px;
+    background: var(--white);
+    border-radius: 10px;
+}
+
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.main-footer p {
+    font-size: 0.85rem;
+    background: linear-gradient(90deg, var(--pink), var(--purple), var(--pink-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.main-footer:hover p {
+    opacity: 1;
+}
+
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -800,31 +822,6 @@ textarea {
     to { transform: rotate(360deg); }
 }
 
-/* 页脚 */
-.site-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 30px;
-}
-
-.site-footer p {
-    font-size: 0.85rem;
-    background: linear-gradient(90deg, var(--pink), var(--purple), var(--pink-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 500;
-    letter-spacing: 1px;
-    opacity: 0.9;
-    transition: all 0.3s ease;
-}
-
-.site-footer:hover p {
-    opacity: 1;
-    transform: scale(1.02);
-}
-
-/* 响应式设计 */
 @media (max-width: 768px) {
     .main-header h1 {
         font-size: 2rem;

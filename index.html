@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐾 232动物园 - 六人专属娱乐站</title>
+    <title>🐾 232动物园 - 六人专属快乐星球</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,13 +18,7 @@
                 <div class="card" data-game="undercover">
                     <div class="card-icon">🔍</div>
                     <h3>谁是卧底</h3>
-                    <p>6人宿舍词库对战</p>
-                </div>
-
-                <div class="card" data-game="werewolf">
-                    <div class="card-icon">🐺</div>
-                    <h3>简易狼人杀</h3>
-                    <p>2狼3民1女巫</p>
+                    <p>自定义词库对战</p>
                 </div>
 
                 <div class="card" data-game="draw">
@@ -48,7 +42,13 @@
                 <div class="card" data-game="message">
                     <div class="card-icon">💌</div>
                     <h3>宿舍留言墙</h3>
-                    <p>留下美好回忆</p>
+                    <p>全球同步永久保存</p>
+                </div>
+
+                <div class="card" data-game="moments">
+                    <div class="card-icon">📸</div>
+                    <h3>趣事记录</h3>
+                    <p>图文并茂永久保存</p>
                 </div>
             </div>
         </main>
@@ -66,7 +66,7 @@
                     <span class="arrow">▼</span>
                 </div>
                 <div class="rules-content">
-                    <p><strong>游戏人数：</strong>6人</p>
+                    <p><strong>游戏人数：</strong>4-10人</p>
                     <p><strong>游戏流程：</strong></p>
                     <ul>
                         <li>每人获得一个词语，卧底获得相似但不同的词语</li>
@@ -96,7 +96,22 @@
                     </div>
                 </div>
 
-                <div class="custom-words" id="custom-words-box">
+                <div class="word-library">
+                    <h4>📚 选择词库</h4>
+                    <select id="undercover-library">
+                        <option value="life">基础生活类</option>
+                        <option value="dorm">宿舍学生类</option>
+                        <option value="network">网络热词类</option>
+                        <option value="game">游戏娱乐类</option>
+                        <option value="advanced">高难度类</option>
+                        <option value="couple">情侣暧昧类</option>
+                        <option value="funny">搞怪沙雕类</option>
+                        <option value="creative">冷门创意类</option>
+                        <option value="custom">自定义词库</option>
+                    </select>
+                </div>
+
+                <div class="custom-words" id="custom-words-box" style="display:none;">
                     <h4>✏️ 自定义词语</h4>
                     <input type="text" id="custom-word-normal" placeholder="平民词：如 外卖">
                     <input type="text" id="custom-word-undercover" placeholder="卧底词：如 快递">
@@ -124,93 +139,6 @@
                     <h3>🗳️ 投票选出卧底</h3>
                     <div class="vote-buttons" id="vote-buttons"></div>
                     <div id="vote-result"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 简易狼人杀游戏页面 -->
-        <section id="werewolf-page" class="game-page" style="display:none;">
-            <div class="game-header">
-                <button class="back-btn">🏠 返回</button>
-                <h2>🐺 简易狼人杀</h2>
-            </div>
-
-            <div class="rules-box">
-                <div class="rules-toggle" onclick="toggleRules(this)">
-                    <span>📖 角色规则</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="rules-content">
-                    <div class="role-card">
-                        <div class="role-icon">🐺</div>
-                        <div class="role-info">
-                            <h5>狼人 ×2</h5>
-                            <p>知道队友身份，每晚可击杀一名玩家</p>
-                        </div>
-                    </div>
-                    <div class="role-card">
-                        <div class="role-icon">👤</div>
-                        <div class="role-info">
-                            <h5>村民 ×3</h5>
-                            <p>没有任何特殊能力，通过发言找出狼人</p>
-                        </div>
-                    </div>
-                    <div class="role-card">
-                        <div class="role-icon">🧙</div>
-                        <div class="role-info">
-                            <h5>女巫 ×1</h5>
-                            <p>有一瓶解药和一瓶毒药，可救人或毒人</p>
-                        </div>
-                    </div>
-                    <p><strong>游戏流程：</strong></p>
-                    <ul>
-                        <li>天黑阶段：狼人杀人 → 女巫决定是否救人/毒人</li>
-                        <li>天亮阶段：宣布昨晚结果 → 依次发言 → 投票</li>
-                        <li>票数最多者出局，可留下遗言</li>
-                    </ul>
-                    <p><strong>胜利条件：</strong>狼人全部出局村民胜利 / 狼人数量等于村民数量狼人胜利</p>
-                </div>
-            </div>
-
-            <div class="game-content">
-                <div class="players-input">
-                    <h4>👥 输入室友名字（6人）</h4>
-                    <div class="input-group">
-                        <input type="text" id="werewolf-name-1" placeholder="玩家1" maxlength="10">
-                        <input type="text" id="werewolf-name-2" placeholder="玩家2" maxlength="10">
-                        <input type="text" id="werewolf-name-3" placeholder="玩家3" maxlength="10">
-                        <input type="text" id="werewolf-name-4" placeholder="玩家4" maxlength="10">
-                        <input type="text" id="werewolf-name-5" placeholder="玩家5" maxlength="10">
-                        <input type="text" id="werewolf-name-6" placeholder="玩家6" maxlength="10">
-                    </div>
-                </div>
-
-                <button class="btn-primary" onclick="startWerewolf()">🎮 开始游戏</button>
-
-                <div id="werewolf-game-area" style="display:none;">
-                    <div class="phase-indicator" id="phase-indicator">
-                        <span class="phase day">☀️ 白天</span>
-                        <span class="phase night" style="display:none;">🌙 夜晚</span>
-                    </div>
-
-                    <div class="night-action" id="night-action" style="display:none;">
-                        <h3 id="night-prompt">狼人请睁眼，选择要击杀的对象</h3>
-                        <div class="action-buttons" id="action-buttons"></div>
-                        <button class="btn-primary" onclick="confirmNightAction()">确认 ☀️</button>
-                    </div>
-
-                    <div class="day-result" id="day-result" style="display:none;">
-                        <h3 id="death-info"></h3>
-                        <button class="btn-secondary" onclick="nextPhase()">继续 ▶</button>
-                    </div>
-
-                    <div class="vote-section" id="vote-section" style="display:none;">
-                        <h3>🗳️ 投票环节</h3>
-                        <div class="vote-buttons" id="werewolf-vote-buttons"></div>
-                        <div id="werewolf-vote-result"></div>
-                    </div>
-
-                    <div class="game-log" id="game-log"></div>
                 </div>
             </div>
         </section>
@@ -347,11 +275,14 @@
 
             <div class="game-content">
                 <div class="difficulty-selector">
-                    <h4>🎚️ 选择难度</h4>
+                    <h4>🎚️ 选择分类</h4>
                     <div class="difficulty-buttons">
-                        <button class="btn-difficulty selected" data-level="easy" onclick="selectDifficulty('easy')">🟢 简单</button>
-                        <button class="btn-difficulty" data-level="normal" onclick="selectDifficulty('normal')">🟡 普通</button>
-                        <button class="btn-difficulty" data-level="hard" onclick="selectDifficulty('hard')">🔴 困难</button>
+                        <button class="btn-difficulty selected" data-category="gentle" onclick="selectCategory('gentle')">🌼 温和真心话</button>
+                        <button class="btn-difficulty" data-category="funny" onclick="selectCategory('funny')">😂 沙雕真心话</button>
+                        <button class="btn-difficulty" data-category="exciting" onclick="selectCategory('exciting')">🔥 刺激真心话</button>
+                        <button class="btn-difficulty" data-category="easy" onclick="selectCategory('easy')">😊 轻松大冒险</button>
+                        <button class="btn-difficulty" data-category="embarrassing" onclick="selectCategory('embarrassing')">😱 社死大冒险</button>
+                        <button class="btn-difficulty" data-category="tricky" onclick="selectCategory('tricky')">🎭 整活大冒险</button>
                     </div>
                 </div>
 
@@ -375,11 +306,11 @@
             </div>
         </section>
 
-        <!-- 宿舍留言墙页面 -->
+        <!-- 全局公共留言墙页面 -->
         <section id="message-page" class="game-page" style="display:none;">
             <div class="game-header">
                 <button class="back-btn">🏠 返回</button>
-                <h2>💌 宿舍留言墙</h2>
+                <h2>💌 全局公共留言墙</h2>
             </div>
 
             <div class="rules-box">
@@ -392,8 +323,9 @@
                     <ul>
                         <li>输入昵称和留言内容（限30字）</li>
                         <li>点击提交即可发布留言</li>
-                        <li>留言会自动保存到本地</li>
-                        <li>刷新页面后记录不丢失</li>
+                        <li>留言会自动同步到云端</li>
+                        <li>所有设备都能看到同一份留言</li>
+                        <li>留言永久保存，不丢失</li>
                     </ul>
                 </div>
             </div>
@@ -409,6 +341,51 @@
                 <div class="messages-container">
                     <h4>📋 留言列表</h4>
                     <div id="messages-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 趣事记录页面 -->
+        <section id="moments-page" class="game-page" style="display:none;">
+            <div class="game-header">
+                <button class="back-btn">🏠 返回</button>
+                <h2>📸 趣事记录</h2>
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-toggle" onclick="toggleRules(this)">
+                    <span>📖 发布规则</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="rules-content">
+                    <p><strong>使用说明：</strong></p>
+                    <ul>
+                        <li>上传图片+文字描述</li>
+                        <li>点击提交发布趣事</li>
+                        <li>图片会自动转为Base64保存</li>
+                        <li>所有设备都能看到相同的趣事</li>
+                        <li>趣事永久保存，不丢失</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="moments-input">
+                    <h4>📷 发布趣事</h4>
+                    <input type="text" id="moments-nickname" placeholder="昵称（可选）" maxlength="10">
+                    <textarea id="moments-content" placeholder="描述一下这个趣事..." rows="3" maxlength="100"></textarea>
+                    <div class="upload-box">
+                        <input type="file" id="moments-image" accept="image/*" onchange="previewImage(this)">
+                        <div class="preview-area" id="preview-area">
+                            <span>点击选择图片</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="submitMoment()">📤 发布趣事</button>
+                </div>
+
+                <div class="moments-container">
+                    <h4>📋 趣事列表</h4>
+                    <div id="moments-container"></div>
                 </div>
             </div>
         </section>
